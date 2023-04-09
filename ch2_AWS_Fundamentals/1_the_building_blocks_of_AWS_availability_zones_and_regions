@@ -1,0 +1,82 @@
+
+Chpater 1.1 - The Building Blocks of AWS: Availability Zones and Regions
+
+Availability Zones and Regions
+
+Lesson Breakdown:
+    AWS Global Infrastructure
+    Availability Zones
+    Data Centers
+    Regions
+    Edge Locations
+    The AWS Management Console
+
+
+AWS Global Infrastructure: 
+the global infrastructure consists of regions and availability zones 
+At the time of the recording, there are 24 regions and 77 availability zones
+
+
+Availability Zones
+What's an Availability Zones?
+Think of an Availability Zones as a data center.
+
+
+Data Centers
+What's a Data Center?
+A data center is just a building filled with servers.
+
+
+Multiple Data Centers - One Availability Zone
+An Availability Zone may be serval data centers, but because they are close together, 
+they are counted as 1 Availability Zone.
+They are within certain mile radius to be grouped into one Availability Zone.
+
+
+What's a Regions?
+A Region is a geographical area. Each Region consists of 2 (or more) Availability Zone.
+e.g. US East 1
+
+
+Edge Locations
+Edge Locations are endpoints for AWS that are used for caching content.
+Tplically , this consists of CloudFront, Amazon's content delivery network (CDN).
+There are many more edge locations than Regions.   Edge Location 比 Region 多很多
+
+
+Exam Tips - 3 Tips for AWS Building Blocks
+1. Regoin is a physical locatin in the world that consists of two or more Availability Zones (AZs).
+2. An AZ is one or more discrete data centers - each with redundant power, networking, and connectivity - housed in separate facilities.
+3. Edge locations are endpoints for AWS that are used for caching content. Typically, this consists of CloudFront, Amazon's CDN.
+
+
+
+Chapter 1.2 - Who Owns What in the Cloud?
+
+This lesson is about Who is responsible for what in the Cloud.
+
+Lesson Breakdown:
+Renting a Car
+Renting Resources in the Cloud
+The Shared Responsiblity Model
+Exam Tips
+
+
+Renting a Car
+When you rent a car, who's responsible for what?
+You:              Not to damage it; Not to speed; Pay tolls, etc.
+Rental Company:   Tire pressure, Full tank of gas; Mechanics
+
+
+Renting Resources in the Could
+Who's responsible for what when you rent resources in the cloud?
+What's you responsible for and what's Amazon responsible for
+That's where the "The Shared Responsibility Model" comes in.
+
+
+The Share Responsibility Model
+AWS: Responsibility for Security OF the Cloud
+
+Customer: Responsibility for Security IN the Cloud
+
+
