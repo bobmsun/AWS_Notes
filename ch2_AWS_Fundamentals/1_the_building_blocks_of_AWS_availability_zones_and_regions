@@ -1,5 +1,5 @@
 
-Chpater 1.1 - The Building Blocks of AWS: Availability Zones and Regions
+Chpater 2.1 - The Building Blocks of AWS: Availability Zones and Regions
 
 Availability Zones and Regions
 
@@ -13,7 +13,7 @@ Lesson Breakdown:
 
 
 AWS Global Infrastructure: 
-the global infrastructure consists of regions and availability zones 
+The global infrastructure consists of regions and availability zones 
 At the time of the recording, there are 24 regions and 77 availability zones
 
 
@@ -40,18 +40,18 @@ e.g. US East 1
 
 Edge Locations
 Edge Locations are endpoints for AWS that are used for caching content.
-Tplically , this consists of CloudFront, Amazon's content delivery network (CDN).
+Typically , this consists of CloudFront, Amazon's content delivery network (CDN).
 There are many more edge locations than Regions.   Edge Location 比 Region 多很多
 
 
 Exam Tips - 3 Tips for AWS Building Blocks
-1. Regoin is a physical locatin in the world that consists of two or more Availability Zones (AZs).
+1. Regoin is a physical location in the world that consists of two or more Availability Zones (AZs).
 2. An AZ is one or more discrete data centers - each with redundant power, networking, and connectivity - housed in separate facilities.
 3. Edge locations are endpoints for AWS that are used for caching content. Typically, this consists of CloudFront, Amazon's CDN.
 
 
 
-Chapter 1.2 - Who Owns What in the Cloud?
+Chapter 2.2 - Who Owns What in the Cloud?
 
 This lesson is about Who is responsible for what in the Cloud.
 
@@ -76,7 +76,155 @@ That's where the "The Shared Responsibility Model" comes in.
 
 The Share Responsibility Model
 AWS: Responsibility for Security OF the Cloud
+They are respoibile for the data center, the AZs, and the Edge Location. They don't want people to know where they are, cause they don't want people to just walk in. They are responsible to the physical security of the data centers. 有许可才能进
+
+They're also responsible for the hardware, e.g. the computer, storage, the database, and the network that runs the entire stack. For example the hypervisor, which bascally controls virtualization on top of the physical components of AWS's cloud.
+
 
 Customer: Responsibility for Security IN the Cloud
+You're responsible for what you do with the cloud.
+For example, 
+Customer Data
+Platform, Applications, Identity & Access Management
+Operation System, Network & Firwall COnfiguration
+Client-Side Data Encryption & Data Integrity Authentication
+Server-Side Encryption (File System and/or Data)
+Networking Traffic Protection (Encryption, Integrity, Identity)
+
+
+Exam Tips: 
+就问你自己：Can you do this yourself in the AWS Management Console?
+If yes, you are likely responsible. For example,
+Security groups, IAM users, patching EC2 operationg system, patching databases running on EC2, etc.
+
+If not, AWS is likely responsible. (You're not responsible for things you can't control.) For example,
+Mangement of data cneters, security cameras, cabling, patching RDS operation systems, etc.
+
+Encryption is a shared responsibility.
+你可以 encrypt your client data by clicking on the button 去 告诉 AWS you want to encrypt this volume, 这就是 you're doing encryption on your side.
+Then AWS has to a bunch of guidence and make sure it's encrypted.
+That's encryption is a shared responsibility.
+
+
+
+
+Chapter 2.3 - Compute, Storage, Databases, and Networking
+
+Compute
+You wouldn't be able to build an application without compute power - you need something to crunch the data.
+
+Usually we think of compute as servers or virtual machines. It can also be serverless, for example things like lambda.
+
+Compute is just the way we process our information.
+
+Some computing services: 
+EC2 (virtual machine);
+Lambda (a way to do it serverlessly, so there are no virtual machines, all you worry about is your code.);
+Elastic Beanstalk (It is a provisioning engine. This is a way of automating the deployment of your application within AWS. You don't need to know a lot about AWS to use Elastic Beanstalk. Essentially, you just throw your code at it and it will basically grow out the web servers, load balancers, etc, you need.)
+
+
+Storage:
+Once we compute the data, we need to store it.
+Think you storage like a giant disk in the cloud - it's a safe place to save your information.
+
+Storage services:
+S3: Simple Storage Services
+EBS: Elastic Block Store. This is basically a virtual hard disk that we attach to our virtual machine.
+EFS: Elastic File System. A way to store our files centrally.
+FSx
+Storage Gateway
+
+
+Databases:
+The easiest way to think of a database is a spreadsheet.
+It's a reliable way to store and retrieve information.
+
+Databases services:
+RDS: relational databases
+DynamoDB -> a non-relational databases
+Redshift: a database warehousing technology
+
+
+Networking:
+We need a way for our compute, stroage,and databases to communicate and even a place for them to live. This is where networking comes in.
+
+Networking Services:
+VPCs: VPC is basically virtual data centers in the cloud.
+Direct Connect: it is a way to directly connect your headquarter or you on-prem databases to AWS cloud.
+Route 53: a way of doing DNS. a way of registering domain name and pointing them at our web servers.
+API Gateway: this is basically a serverless way of replacing your web servers.
+AWS Global Accelerator: a way of accelerating your audiences towards your application within AWS.
+
+
+Key Services to Know for the Exam:
+Compute: EC2, Lambda, Elastic Beanstalk
+Storage: S3, EBS, EFS, FSx, Storage Gateway
+Databases: RDS, DynamoDB, Redshift
+Networking: VPCs, Direct Connect, Route 53, API Gateway, AWS Global Accelerator
+
+
+
+
+Chapter 2.4 - What is the Well-Architected Framework?
+
+AWS Whitepapers
+Well-Architected Framework Pillars
+Exam Tips
+
+AWS Whitepapars
+AWS has hundreds of whitepapers available.
+https://aws.amazon.com/whitepapers
+
+Read "AWS Well-Architected Framework" whitepaper at the end of the course before taking the exam.
+This is the most important whitepaper for the exam.
+
+Well-Architected Framework Pillars
+Six Pillars of the Well-Architected Framework
+1. Operational Excellence:
+Running and monitoring systems to deliver business value, and continually improving processes and procedures
+2. Performance Efficiency
+Using IT and computing resources efficiently
+3. Security
+Protecting information and systems
+4. Cost Optimization
+Avoiding unnucessary costs
+5. Reliability
+Ensuring a workload performs its intended function correctly and consistently when it's expected to
+6. Sustainability
+Minimizing the environmental impacts of running cloud workloads
+
+Read this whitepaper after you finish this course and are about to take the exam.
+
+
+
+Chapter 2.5 - AWS Fundamentals Exam Tips
+
+The Building Blocks of AWS: Availability zones and Regions:
+3 Tips for AWS Building Blocks:
+1. A Region is a physical location in the world that consists of two or more Availability Zones (AZs).
+2. An AZ is one or more discrete data centers - each with redundant power, networking, and connectivity - housed in separate facilities.
+3. Edge Locations are endpoints for AWS that are used for caching content. Typically, this consists of CloudFront, Amazon's content delivery network (CDN).
+There are always more Edge Locations than there are Regions.
+Edge Locations are closer to the user.
+
+Who Owns What is the Cloud?
+Just need to ask yourself: can you do this yourself in the AWS Management Console?
+1. If yes, you are likely responsible.
+e.g. Security groups, IAM users, patching EC2 operating systems, patching databases running on EC2, etc.
+2. If no, AWS is likely responsible.
+e.g. Management of the data centers (preventing people from going into the data centers and walking around), security cameras, cabling, patching RDS operating systems, etc.
+3. Encryption is a shared responsibility.
+
+Compute, Storage, Databases, and Networking
+You need to know the Key Services:
+1. Compute: EC2, Lambda, Elastic Beanstalk
+2. Storage: S3, EBS, EFS, FSx, Storage Gateway
+3. Databases: RDS, DynamoDB, Redshift
+4. Networking: VPCs, Direct Connect, Route 53, API Gateway, AWS Global Accelerator
+
+Read the Whitepaper - Well-Architected Framework
+
+
+
 
 
