@@ -1,0 +1,154 @@
+
+
+Chapter 3.1 - Securing the Root Account
+
+Lesson Breakdown
+What is IAM? (Identity Access Management)
+Understanding IAM
+What is the Root Account?
+Console Demo (How to secure the root account using the Console)
+Review
+
+What is IAM?
+IAM allows you to manage users and their level of access to the AWS console.
+1. Create users and grant permissions to those users.
+2. Create groups and roles.
+3. Control access to AWS resources.
+IAM is a way of granting access to AWS resources.
+
+Understanding IAM 
+It is important to understanding IAM both for the exam and for administrating a company's AWS account in real life.
+
+
+IAM all starts with the root account.
+
+What is the Root Account?
+The root account is the email address you used to sign up for AWS. The root account has full administrative access to AWS. For this reason, it is important to secure this account.
+
+Super important to secure your root account.
+
+
+Exam Tips
+If you are asked about how to secure your root accoun, always say "turn on mulit-factor authentication on the root account.
+Remember the root accout has the full administrative access.
+
+4 Steps to Secur Your AWS Root Account:
+1. Enable multi-factor authentication on the root account.
+2. Create an admin group for your administrators, and assign the appropriate permissions to this group.
+3. Create user accounts for your administrators.
+4. Add your users to the admin group.
+
+
+
+
+Chapter 3.2 - Controling Users' Actioins with IAM Policy Documents
+
+Lesson Breakdown:
+Permissions with IAM
+JSON Example of Policy Documents
+How policy Documents Work
+Console Demo
+Review
+
+
+Permissions: How do you control persimmsions using IAM?
+We assign permissions using policy documents, which are made up of JSON (JavaScript Object Notation).
+
+Below policy gives you full administration access
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "*",
+            "Resource": "*"
+        }
+    ]
+}
+
+
+We can assign IAM Policy Documents to Groups / Users / Roles.
+
+Typically, you will NOT assign a policy directly to a user, because that will become difficult to manage.
+What you will do is add the user into a group and then assign the policy document to a group. And what happens is the user inherits the permission from the group.
+
+But all the permissions that are controlled within AWS come back to IAM policy documents.
+
+
+When you create users/groups/policies, that's happening on the global level. You can't have a user just sit within a particular region.
+
+Users/Groups/Policies are all global.
+
+AWS has a lot of AWS created and managed policies.
+你也可以自己 create customized policy
+
+
+Exam Tips:
+Assign permission using IAM policy documents consisting of JSON
+
+
+Next chapter will look at users and groups, and how to assign policies to users and groups.
+
+
+
+
+Chapter 3.3 - Permanent IAM Credentials
+
+Lesson Breakdown:
+The Building Blocks of IAM
+Best Practices: Policies
+Best Practices: Users and People
+The Principle of Least Privilege
+Console Demo
+Review
+
+
+The Building Blocks of Identity and Access Managment
+Users: a physical person (one user is always one human being)
+Groups: Functions, such as adminstrator, developer, etc. Group contains users.
+(we should group our users into groups.)
+     Groups should be by job functions.
+Roles: Internal usage within AWS (one part of AWS to access another part of AWS, e.g. allow our EC2 instance to access our S3 buckets)
+(will cover Roles in the EC2 section of the course)
+
+You can assign IAM policy directly to user to give them permission, but that could be very hard to manage.
+一般都是 apply the IAM policy to the group.
+It's best practice for users to inherit permissions from groups.
+When you are making changes, you do it at the group level.
+
+BestPractices: Users and People
+User = Physical Person
+Always work on the principle that one user equals one physical person.
+Should never share user accounts across multiple people.
+Otherwise, you wouldn't be able to track who did what.
+
+The Principle of Least Privilege:
+Only assign a user or group the minimum amount of privileges they need to do their job.
+
+AWS create 的 policy
+e.g. PowerUser: can do normally everything an administrator can do, except creating users and groups and cannot grant administrator access to a user / group.
+
+Customer-created policy will not have the icon. 有 icon 的 AWS created 的 policy
+
+Everytime we create a user, 如果我们不把 user 加入到任何 group 中，by default, than user has NO priviliges.
+
+
+Exam Tips:
+1. IAM is Universal: It does not apply to regions at this time.
+   When you create a user or a group, it's created across the world globally. 
+   It's not tied down to a specific region.
+2. The Root Account: The account created when you first set up your AWS account and which has complete admin access. Secure it as soon as possible and do not use it to log in day to day.
+3. New Users: No permission when first created.
+4. Access key ID and screte access keys are not the same as usernames and passwords.
+    Access key ID and secret access keys are used for programatic access to the AWS console.
+5. You only get to view these once. If you lose them, you have to regenerate them. So save them is a secure location.
+6. Always set up password rotations. You can create and customize your own password rotation policies.
+7. IAM Federation: You can combine your existing user account with AWS. For Example, when you log on to your PC (usually using Microsoft Active Directory), you can use the same credentials to log in to AWS if you set up federation.
+8. Identity Federation: Uses the SAML standard, which is Active Directory.
+
+
+
+
+Chapter 3.4 - IAM Exam Tips
+
+4 Steps to Secure Your AWS Root Account:
