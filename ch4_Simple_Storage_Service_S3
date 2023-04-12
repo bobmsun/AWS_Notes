@@ -1,0 +1,141 @@
+
+Chapter 4.1 - S3 Overview
+
+Lesson Breakdown:
+What is S3?
+S3 Basics
+Working with S3 Buckets
+Key-Value Store
+Availability and Durability
+Characteristics
+Securing Your Data 
+Consistency Model (when we upload data to S3)
+Exam Tips
+
+
+What is S3?
+1. Object Storage:
+    S3 provides secure, durable, highly scalable object storage.
+2. Scalable: 
+    S3 allows you to store and retrieve any amount of data from anywhere on the web at a very low cost.
+3. Simple:
+    Amazon S3 is easy to use, with a simple web service interface.
+
+
+S3 is object-based storage:
+Manages data as object rather than in file systems or data blocks.
+1. Upload any file type you can think of to S3.
+2. Examples include photos, videos, code, documents, and text file.
+3. Cannot be used to run an operating system or database.(You can't install operating systems. You can't databases on S3.)
+
+S3 is basically a place to store static files - files that don't change.
+
+
+S3 Basics:
+1. Unlimited Storage: 
+    The total volume and the number of objects you can store is unlimited.
+2. Objects up to 5 TB in size:
+    S3 objects can range in size from a minimum of 0 bytes to a maximum of 5 terabytes.
+3. S3 Buckets:
+    Store files in buckets (similar to folders).
+    Every way you store your files is in these things called buckets.
+
+
+Working with S3 Buckets
+1. Universal Namespace:
+    All AWS accounts share the S3 namespace.
+    Each S3 bucket name is globally unique.
+2. You need to understand how the S3 url works:
+    Example of S3 URL:
+        https://bucket-name.s3.Region.amazonaws.com/key-name
+        https://acloudguru.s3.es-east-1.amazonaws.com/Ralphie.jpg
+3. Uploading Files:
+    When you upload a file to an S3 bucket, you will receive an HTTP 200 code if the upload was successful.
+
+
+Key-Value Store
+1. Key: (key is basically the name of the object)
+    The name of the object (e.g. Ralphie.jpg)
+2. Value:
+    The dat itself, which is made up of a sequence of bytes.
+3. Version ID:
+    Important for storeing multiple versions of the same object. (will have version ID if we have versioning enabled on the bucket.)
+4. Metadata
+    Data about the data you are storing (e.g., content-type, last-modified, etc.)
+
+
+S3 is a safe place to store your files:
+It's not on single data center on a single server. It's always gonna spread across multiple divices and facilities in order to ensure availability and durability.
+
+
+Highly Available and Highly Durable:
+1. Built for Availability:
+    Built for 99.95% - 99.99% service availability, depending on the S3 tier.
+2. Designed for Durability (durability means, is your file gonna be lost at some point)
+    Designed for 99.99999999% (9 decimal places) durability ofr data stored in S3.
+
+
+S3 Standard:
+1. High Availability and Durability
+    Data is stored redundantly across multiple devices in multiple facilities (>= 3 AZs)
+        99.99% availability
+        99.99999999% durability (11 9's)
+2. Designed for Frequent Access
+    Perfect for frequently accessed data.
+3. Suitable for Most Workloads
+    The default storage class.
+    Use cases include websites, content distribution, mobile and gaming applications, and big data analytics.
+
+
+Characteristics:
+1. Tiered Storage (besides standard, we do have tiered storage):
+    S3 offers a range of storage classes designed for different use cases.
+    (S3 Standard fits most use case, but it doesn't cover all use cases. We have some other tiers)
+2. Lifecycle Management:
+    Define rules to automatically transition objects to a cheaper storage tier or delete objects that are no longer required after a set period of time.
+3. Versioning:
+    With versioning, all versions of an object are stored and can be retrieved, including deleted objects.
+ 
+
+Securing Your Data:
+1. Server-side Encryption:
+    You can set default encryption on a bucket to encrypt all new objects when they are stored in the buckets.
+    (As soon as you upload the objec to the bucket, that object will be encrypted.)
+2. Access Control List (ACLs)
+    Define which AWS accounts or groups are granted access and the type of access. You can attach S3 ACLs to individual objects within a bucket.
+    (fine-grained approach)
+3. Bucket Policies:
+    S3 bucket policies specify what actions are allowed or denied (e.g., allow user Alice to PUT but not DELETE objects in the bucket).
+    Bucket Policies are bucket-wide. Similar to IAM policy, Bucket policies are JSON that you can attach to a bucket. It applies across buckets as a whole. 
+    Whereas, for ACL, you can drill down your permission to individule object.
+
+
+Strong Read-After-Write Consistency
+1. After a successful write of a new object (PUT) or an overwrite of an existing object, any subsequent read request immediately receives the latest version of the object.
+2. Strong consistency for list operations, so after a write, you can immdediately perform a listing of the objects in a bucket with all changes reflected.
+
+The consistency model for S3 is strong read-after-write. As soon as you write something to S3, you should be immediately available.
+
+
+Exam Tips:
+What to know for the eaxm:
+1. Object based: object-based storage allows you to upload files.
+2. Not OS or DB Storage: Not suitable to install an operation system or run a database on.
+3. Files up to 5TB: files can be from 0 bytes to 5 TB.
+4. Unlimited Storage: The total volume of data and the number of objects you can store is unlimited.
+
+
+Files are Stored in Buckets
+S3 is a universal namespace.
+https://bucket-name.s3.Region.amazonaws.com/key-name
+https://acloudguru.s3.us-east-1.amazonaws.com/Ralphie.jpeg
+
+Successful CLI or API uploads will generate an HTTP 200 status code.
+
+4 S3 Object Tips:
+1. Key: The object name (e.g. Ralphie.jpg)
+2. Value: The data itself, which is made up of a sequence of bytes
+3. Version ID: Allows you to store multiple versions of the same object
+4. Metadata: Data about the data you are storing (e.g., content-type, last-modified, etc.)
+
+
