@@ -139,3 +139,537 @@ Successful CLI or API uploads will generate an HTTP 200 status code.
 4. Metadata: Data about the data you are storing (e.g., content-type, last-modified, etc.)
 
 
+
+
+
+Chapter 4.2 - Securing Your Bucket with S3 Block Public Access
+
+Lesson BreakDown:
+Object ACLs vs. Bucket Policies
+Demo: Create an S3 Bucket
+Exam Tips
+
+
+Object ACLs vs. Bucket Policies
+
+Access Constrol List:
+Object ACLs: Object ACLs work on an individual object level.
+
+Bucket Policy:
+Bucket policies work on an entire bucket level.
+
+
+Exam Tips:
+What to Know for the Exam
+1. Buckets are private by default: 
+    When you create an S3 bucket, it is private by default (including all objects within it). You have to allow public access on both the bucktet and its objects in order to make the bucket public.
+2. Object ACLs: 
+    You can make individual objects public using object ACLs.
+3. Bucket policies: You can make entire buckets public using object ACLs.
+4. HTTP status code: When you upload an object to S3 and it's succesful, you will receive an HTTP 200 code.
+
+
+
+Chapter 4.3 - Hosting a Static Website Using S3
+
+Lesson Breakdown:
+Static Websites on S3
+Automatic Scaling
+Console Demo
+Exam Tips
+
+
+Static Websites on S3:
+You can use S3 to host static websites, such as .html sites.
+Dynamic websites, such as those that require database connections, cannot not be hosted on S3.
+
+
+Automatic Scaling:
+S3 Scales Automatically
+S3 scales automatically to meet demand. Many enterprises will put static websites on S3 when they think there is going to be a large number of requests (e.g., for a movie preview).
+
+
+Exam Tips:
+What to Know for the Exam
+1. Bucket Policies: Make entire buckets public using bucket policies.
+2. Static Content: use S3 to host static content only (not dynamic).
+3. Automatic Scaling: S3 scales automatically with demand.
+
+
+
+Chapter 4.4 - Versioning Objects in S3
+
+Lesson Breakdown:
+What is Versioning?
+Advantages of Versioning
+Console Demo
+Exam Tips
+
+
+What is Versioning?
+You can enable versioning in S3 so you can have multiple version of an object within S3.
+
+
+Advantages of Versioning
+1. All Versions:
+    All versions of an object are stored in S3. This includes all writes and even if you delete an object.
+2. Backup:
+    Can be a great backup tool.
+3. Cannot Be Disabled:
+    Once enabled, versioning cannot be disabled - only suspended.
+4. Lifecycle Rules:
+    Can be integrated with lifecycle rules.
+5. Supports MFA:
+    Can support multi-factor authenication.
+
+Exam Tips:
+5 Tips for Versioning Objects:
+1. All Versions: all versions of an object are stored in S3. This includes all writes and even if you delete an object.
+2. Backup: Can be a great backup tool.
+3. Cannot be Disabled: Once enabled, versioning cannot be disabled - only suspended.
+4. Lifecycle Rules: Can be integrated with lifecycle rules.
+5. Supports MFA: Can support multi-factor authentication.
+
+
+
+Chapter 4.5 - S3 Stoarge Classes
+
+Lesson Breakdown:
+S3 Standard
+S3 Standard-Infrequent Access
+S3 One Zone-Infrequent Access
+S3 Intelligent-Tiering
+3 Glacier Options
+Performance across S3
+Storage Costs
+Exam Tips
+
+
+S3 Standard:
+1. High Availability and Durability:
+    Data is stored redundantly across multiple devices in multiple facilityies (>= 3 AZs)
+    99.99% availability
+    99.999999999% durability (11 9's)
+2. Designed for Frequent Access
+    Perfect for frequently accessed data.
+3. Suitable for Most Workloadd
+    The default stoarge class.
+    Use cases include websites, content distribution, mobile and gaming applications, and big data analytics.
+
+
+S3 Standard-Infrequent Access (S3 Standard-IA)
+Designed for Infrequently Accessed Data
+1. Rapid Access
+    Used for data that is accessed less frequently but requires rapid access when needed.
+2. You Pay to Access the Data
+    There is a low per-GB storage price and a per-GB retrieval fee.
+3. Use Cases
+    Great for long-term storage, backups, and as a data store for disaster recovery files.
+99.9% Availability
+99.999999999% (11 9's) Durability
+
+
+S3 One Zone-Infrequent Access
+Like S3 Standard-IA, but data is stored redundantly within a single AZ.
+Cost 20% less than regular S3 Standard-IA.
+Great for long-lived, infrequently accessed, non-critical data.
+99.5% Availability
+99.999999999% (11 9's) Durability
+
+
+Sometimes I need to access my data frequently, and other times I'll access it infrequently.
+
+
+S3 Intelligent-Tiering
+2 Tiers
+Frequent and Infrequent Access 
+Automatically moves your data to the most cost-effective tier based on how frequently you access each object.
+Optimizes Cost: monthly fee of $0.0025 per 1,000 objects
+99.99% Availability
+99.999999999% (11 9's) Durability
+
+
+Glacier and Glacier Deep Archive
+3 Glacier Options
+    You pay each time you access your data.
+    Use only for achiving data.
+    Glacier is cheap storage.
+    Optimized for data that is very infrequently accessed.
+    99.99% Availability
+    99.999999999% (11 9's) Durability
+Option 1: Glacier Instant Retrieval
+Provides long-term data archiving with instant retrieval time for your data.
+
+Option 2: Glacier Flaxible Retrieval
+Ideal storage calss for archive data that does not require immediate access but needs the flexibility to retrieve large sets of data at no cost, such as backup or disaster recovery use cases. Can be minutes or up to 12 hours.
+
+Option 3: Glacier Deep Archive
+Cheapest Storage class and designed for custoemrs that retain data sets for 7-10 years or longer to meet customer needs and regulatory compliance requirements. The standard retrieval time is 12 hours, and the bulk retrieval time is 48 hours.
+
+
+
+
+Chapter 4.6 - Lifecycle Management with S3
+
+Lesson Breakdown
+What is Lifecycle Mangement?
+Lifecycle Management and Versioning
+Console Demo
+Exam Tips
+
+
+What is Lifecycle Management?
+Lifecycle management automates moving your objects between the different storage tiers, thereby maximizing cost effectiveness.
+
+S3 Standard (keep for 30 days) --> S3-IA (after 30 days)  -->  Glacier (after 90 days)
+
+
+Combining Lifecycle Management with Versioning:
+You can use lifecyclemanagement of move different versions of to different storage tiers.
+
+
+Exam Tips:
+3 Tips for Lifecycle Management:
+1. Automates moving objects between different storage tiers.
+2. Can be used in conjunction with versioning.
+3. Can be applied to current versions and previous versions.
+
+
+
+
+Chapter 4.7 - S3 Object Lock and Glacier Vault Lock
+
+Lesson Breakdown:
+S3 Object Lock
+Governance Mode
+Compliance Mode
+Retention Periods
+Legal Holds
+Glacier Vault Lock
+Exam Tips
+
+
+S3 Object Lock:
+    You can use S3 Object Lock to store objects using a write once, read many (WORM) model. It can help prevent objects from being deleted or modified for a fixed amount of time or indefinitely.
+    
+    You can use S3 Object Lock to meet regulatory requirements that require WORM storage, or add an extra layer of protection against object changes and deletion.
+
+
+Governance Mode:
+    In governance mode, users can't overwrite or delete an object version or alter its lock settings unless they have special permissions.
+
+    With governance mode, you protect objects against being deleted by most users, but you can still grant some users permission to alter the retention settings or delete the object if necessary.
+
+
+Compliance Mode:
+    In compliance mode, a protected object version can't be overwritten or deleted by any user, including the root user in your AWS account. When an object is locked in compliance mode, its retention mode can't changed and its retention period can't be shortened. Compliance mode ensures an object version can't be overwritten or deleted for the duration of the retention period.
+
+
+Retention Periods:
+    A retention period protects an object version for a fixed amount of time. When you place a retention period on an object version, Amazon S3 stores a timestamp in the object version's metadata to indicate when the retention period expires.
+
+    After the retention period expires, the object version can be overwritten or deleted unless you also placed a legal hold on the object version.
+
+
+Legal Holds:
+    S3 Object Lock also enables you to place a legal hold on an object version. Like a retention period, a legal hold prevents an object version from being overwritten or deleted. However, a legal hold prevents an object version from being overwritten or deleted. However, a legal hold doesn't have an associate retention period and remains in effect until removed. Legal holds can be freely placed and removed by any user who has the s3:PutObjectLegalHold permission.
+
+
+Glacier Vault Lock:
+    S3 Glacier Vault Lock allows you to easily deploy and enforce compliance controls for individual S3 Glacier vaults with a vault lock policy. You can specify controls, such as WORM, in a vault lock policy and lock the policy from future edits. Once locked, the policy can no longer be changed.
+
+
+Exam Tips:
+3 Object Lock Tips:
+1. Use S3 Object Lock to store objects using a write once, read many (WORM) model.
+2. Object Lock can be on individual objects or applied across the bucket as a whole.
+3. Object Lock comes in two modes: governance mode and compliance mode.
+
+
+S3 Object Lock Modes:
+1. Compliance Mode:
+    With compliance mode, a protected object version can't be overwritten or deleted by any user, including the root user in your AWS account.
+2. Governance Mode:
+    With Governance mode, users can't overwrite or delete an object version or alter its lock setting unless they have special permissions.
+
+S3 Glacier Vault Lock Exam Tips:
+1. S3 Glacier Vault Lock allows you to easily deploy and enforce compliance controls for individual S3 Glacier vaults with a vault lock policy.
+2. You can specify controls, such as WORM, in a vault lock policy and lock the policy from future edits. Once locked, the policy can no longer be changed.
+
+
+
+
+Chapter 4.8 - Encrypting S3 Objects
+
+Lesson Breakdown:
+Types of Encryption
+Enforcing Server-Side Encryption
+Console Demo
+Exam Tips
+
+
+Types of Encryption:
+1. Encryption in Transit
+    SSL/TLS
+    HTTPS
+2. Encryption at Rest: Server-Side Encryption
+    SSE-S3: S3-managed keys, using AES 256-bit encryption
+    SSE-KMS: AWS Key Management Service-managed keys
+    SSE-C: Customer-provided keys
+3. Encryption at Rest: Client-Side Encryption
+    you encrypt the files yourself before you upload them to S3.
+
+
+Enforcing Server-Side Encryption:
+(Two Ways to Do it)
+1. Console:
+    Select the encryption setting on your S3 bucket. The easiest way is just a checkbox in the console.
+2. Bucket Policy
+    You can also enforce-encryption using a bucket policy. This method sometimes comes up in the exam.
+
+
+Every time a file is uploaded to S3, a PUT request is initiated.
+
+
+Enforcin Server-Side Encryption:
+1. x-amz-server-side-encryption:
+    If the file is to be encrypted at upload time, the x-amz-server-side-encryption parameter will be included in the request header.
+2. Two Options
+    x-amz-server-side-encryption: AES256    (SSE-S3  -->  S3-managed keys)
+    x-amz-server-side-encryption: aws:kms   (SSE-KMS -->  KMS-managed keys)
+3. PUT Request Header
+    When this parameter is included in the header of the PUT request, it tells S3 to encrypt the object at the time of upload using the specified encryption method.
+
+You can create a bucket policy that denies any S3 PUT request that doesn't include the x-amz-server-side-encryption parameter in the request header.
+
+
+Exam Tips:
+1. Encryption in Transit
+    SSL/TLS
+    HTTPS
+2. Encryption at Rest: SSE
+    Server-side encryption
+    SSE-S3 (AES 256-bit)
+    SSE-KMS
+    SSE-C
+3. Client-Side Encryption:
+    You encrypt the files yourself before you upload them to S3
+4. Enforcing Encrhption with a Bucket Policy
+    A bucket policy can deny all PUT requests that don't include the x-amz-server-side-encryption parameter in the request header.
+
+
+Chapter 4.9 - Optimizing S3 Performance
+
+Lesson Breakdown:
+S3 Prefixes
+S3 Performance
+Limitations with KMS
+S3 Performance: Uploads
+S3 Performance: Downloads
+Exam Tips
+
+
+S3 Prefixes Exaplained:
+1. mybucketname/folder1/subfolder1/myfile.jpg   > /folder1/subfolder1
+2. mybucketname/folder2/subfolder1/myfile.jpt   > /folder2/subfolder1
+3. mybucketname/folder3/myfile.jpg              > /folder3
+4. mybucketname/folder4/subfolder4/myfile.jpb   > /folder4/subfolder4
+
+
+S3 Performance
+    S3 has extremely low latency. You can get the first byte out of S3 within 100-200 milliseconds.
+
+    You can also achieve a high number of requests: 3,500 PUT/COPY/POST/DELETE and 5,500 GET/HEAD requests per second, per prefix.
+
+
+S3 Performance
+1. You can get better performance by spreading your reads across different prefixes. For example, if you are using 2 prefixes. For eaxample, if you are using 2 prefixes, you can achieve 11,000 requests per second.
+2. If we used all 4 prefixes in the last example, you would achieve 22,000 requests per second.
+
+
+Limitations with KMS
+S3 Limitations when using KMS
+1. If you are using SSE-KMS to encrypt your objects in S3, you must keep in mind the KMS limits.
+2. When you upload a file, you will call GenerateDataKey in the KMS API.
+3. When you download a file, you will call Decrypt in the KMS API.
+
+
+KMS Request Rates:
+1. Uploading/downloading will count toward the KMS quota.
+2. Region-specific, however, it's either 5,500 or 10,000 or 30,000 requests per second.
+3. Currently, you cannot request a quota increase for KMS.
+
+
+S3 Performance: Uploads
+Multipart uploads
+    Recommended for files over 100 MB
+    Required for files over 5 GB
+    Parallelize uploads (increases efficiency)
+
+S3 Performance: Downloads
+S3 Byte-Range Fetches
+    Parallelize downloads by specifying byte ranges.
+    If there's a failure in the download, it's only for a specific byte range.
+    Can be used to speed up downloads.
+    Can be used to download partial amounts of the file (e.g., header information)
+
+
+Exam Tips:
+1. mybucketname/folder1/subfolder1/myfile.jpg   > /folder1/subfolder1
+2. You can also achieve a high number of requests: 3,500 PUT/COPY/POST?DELETE and 5,500 GET/HEAD requests persecond, per prefix.
+3. You can get better performance by spreading your reads across different prefixes. For example, if you are using 2 prefixes, you can achieve 11,000 requests per second.
+
+If you are using SSE-KMS to encrypt your objects in S3, you must keep in mind the KMS limits.
+1. Uploading / downloading will count toward the KMS quota.
+2. Region-specific, however, it's either 5,500 or 10,000, or 30,000 requests per second.
+3. Currently, you cannot request a quota increase for KMS.
+
+
+Use multipart uploads to increase performance when uploading files to S3.
+
+Should be used for any files over 100 MB and must be used for any file over 5 GB.
+
+Use S3 byte-range fetches to increase performance when downloading files to S3.
+
+
+
+
+
+Chapter 4.10 - Backing up Data with S3 Replication
+
+S3 Replication
+Console Demo
+Exam Tips
+
+
+S3 Replication:
+1. You can replicate objects from one bucket to another.
+    Versioning must be enabled on both the source and destionation buckets.
+2. Objects in an existing bucket are not replicated automatically.
+    Once replication is turned on, all subsequent updated objects will be replicated automatically.
+3. Delete markers are not replicated by default.
+    Deleting individual versions or delete markers will not be replicatd.
+
+Exam Tips:
+Remember What S3 Replication is
+Tip 1: You can replicate objects from one bucket to another.
+Tip 2: Objects in an existing bucket are not replicated automatically
+Tip 3: Delete markers are not replicated by default
+
+
+
+
+Chapter 4.11 - S3 Exam Tips
+
+S3 Overview:
+What to Know for the Exam:
+1. Object Based (S3 is object-based storage)
+     Object-based stroage allows you to upload files
+2. Files up to 5 TB
+    Files can be from 0 bytes to 5 TB
+3. Not OS or DB Storage
+    Not suitable to install an operatin system or run a database on.
+4. Unlimited Storage
+    The total volume of data and the number of objects you can store is unlimited.
+
+Important Exam Tip:
+Files Stored in Buckets
+S3 is a univerdal namespace.
+https://bucket-name.s3.Region.amazonaws.com/key-name
+https://acloudguru.s3.us-east-1.awszonaws.com/Ralphie.jpeg
+
+Successful CLI or API uploads will generate an HTTP 200 status code.
+
+4 S3 Object Tips:
+1. Key:
+    The object name (e.g. Ralphie.jpg)
+2. Value
+    The data itself, which is made up of a sequence of bytes
+3. Version ID
+    Allows you to store multiple versions of the same object
+4. Metadata
+    Data about the data you are storing (e.g., content-type, last-modified, etc.)
+
+Securing Your Bucket with S3 Block Public Access
+Securing Your Bucket with S3 - Exam Tips
+1. Buckets are private by default: 
+    When you create an S3 bucket, it is private by default (including all objects within it). You have to allow public access on both the bucket and its objects in order to make the bucket public.
+2. Object ACLs: You can make individual objects public using object ACLs.
+3. Bucket policies: You can make entire buckets public using bucket policies.
+4. HTTP status code: When you upload an object to S3 and it's successful, you will receive an HTTP 200 code.
+
+
+Hosting a Static Website Using S3:
+1. Bucket Policies: You can make entire buckets public using bucket policies.
+2. Static Content: You can use S3 to host static content only (not dynamic).
+3. Automatic Scaling: S3 scales automatically with demand.
+
+
+Versioning Objects - Exam Tips:
+1. All Versions: all versions of an object are stored in S3. This includes all writes and even if you delete an object.
+2. Backup: can be a great backup tool.
+3. Cannot Be Disabled: Once enabled, versioning cannot be disable - only suspended.
+4. Lifecycle Rules: Can be integrated with lifecycle rules.
+5. Supports MFA: Can support multi-factor authentication.
+
+
+Lifecycle Managelemt with S3
+3 Tips for Lifecycle Management:
+1. Automates moving your objects between the different sotrage tiers
+2. Can be used in conjuction with versioning.
+3. Can be applied to current versions and previous versions.
+
+
+S3 Object Lock and Glacier Vault Lock
+1. Use S3 Object Lock to store objects using a write once, read many (WORM) model.
+2. Object Lock can be on individual objects or applied across the bucket as a whole.
+3. Object Lock comes in two modes: governamce mode and compliance mode.
+
+
+S3 Object Lock and Glacier Vault Lock:
+    With governance mode, users can't overwrite or delete an object version or alter its lock settings unless they have special permissions.
+    With compliance mode, a protected object version can't be overwritten or deleted by any user, including the root user in your AWS account.
+
+
+S3 Object Lock and Glacier Vault Lock:
+    S3 Glacier Vault Lock allows you to easily deploy and enforce compliance controls for individual S3 Glacier vaults with a vault lock policy. You can specify controls, such as WORM, in a vault lock policy and lock the policy from future edits. Once locked, the policy can no longer be changed.
+
+
+Encrypting S3 Objects - Exam Tips:
+1. Encryption in Transit:
+    SSL/TLS
+    HTTPS
+2. Encryption at Rest: SSE:
+    Server-side encryption
+    SSE-S3 (AES 256-bit)
+    SSE-KMS
+    SSE-C
+3. Client-side Encryption:
+    You encrypt the files yourself before you upload them to S3.
+4. Enforcing Encryption with a Bucket Policy
+    A bukcet policy can deny all PUT requests that don't include the x-amz-server-side-encryption parameter in the request header.
+
+
+Optimizing S3 Performance:
+    mybucketname/folder1/subfolder1/myfile.jpg   >   /folder1/subfolder1
+
+    You can also achieve a high number of requests: 3,500 PUT/COPY/POST/DELETE and 5,500 GET/HEAD requests per second, per prefix.
+
+    You can get better performance by spreading your reads across different prefixes. For example, if you are using 2 prefixes, you achieve 11,000 requests per second.
+
+If you are using SSE-KMS to encrypt your objects in S3, you mush keep in mind the KMS limits.
+    Uploading/downloading will count toward the KMS quota.
+    Regoin-specific, however, it's either 5,500 or 10,000 or 30,000 requests per second.
+    Currently, you cannot request a quota increase for KMS.
+
+Optimizing S3 Performance:
+    Use multipart uploads to increase performance when uploading files to S3.
+    Should be used for any files over 100 MB and must be used for any file over 5 GB.
+    Use S3 byte-range fetches to increase performance when downloading files to S3.
+
+
+Backing up Data with S3 Replication
+Remember what S3 replication is:
+    You can replicate objects from one bucket to another.
+    Objects in an existing bucket are not replicated automatically.
+    Delete markers are not replicated by default.

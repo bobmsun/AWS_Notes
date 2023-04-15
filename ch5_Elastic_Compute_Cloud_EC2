@@ -1,0 +1,62 @@
+
+Chapter 1 - EC2 Overview
+
+Lesson Breakdown
+Introducing EC2 
+EC2 Pricing Options
+Exam Tips 
+
+
+Introducing EC2:
+Elastic Compute Cloud (EC2)
+
+    Secure, resizable computte capacity in the cloud.
+
+    Like a VM, only hosted in AWS instead of your own data center.
+
+    Designed to make web-scale cloud computing easier for developers.
+
+    The capacity you want when you need it.
+    
+    You are in complete control of your onw instances.
+
+
+Introducing EC2:
+    Game Changer: AWS led a big change in the industry by introducing EC2.
+    
+    Pay Only for What You Use: EC2 changed the economics of computing.
+    
+    No Wasted Capacity: Select the capacity you need right now. Grow and shrink when you need.
+
+
+Introducing EC2:
+    On-premises Infrastructure
+    Estimate Capacity
+    Long-term investment, 3-5 years.
+    Expectation that the application will "grow into" it.
+    Lots of wasted capacity.
+
+    有了 EC2 之后，wait minutes, not months
+
+
+EC2 Pricing Options:
+    On-Demand: 
+        Pay by the hour or the second, depending on the type of instance you run.
+    Reserved: 
+        Reserved capacity for 1 or 3 years. Up to 72% discount on the hourly charge.
+    Spot:
+        Purchase unused capacity at discount of up to 90%. Prices fluctuate with supply and demand.
+    Dedicated:
+        A physical EC2 server dedicated for your use. The most expensive option.
+
+
+On-Demand Instances:
+1. Flexible: 
+    Low cost and flexibility of Amazon EC2 without any upfron payment or long-term commitment.
+2. Short-Term: 
+    Applictions with short-term, spiky, or unpredictable workloads that cannot be interrupted.
+    
+
+
+
+
