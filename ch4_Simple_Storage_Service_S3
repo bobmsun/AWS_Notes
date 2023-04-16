@@ -72,7 +72,7 @@ Highly Available and Highly Durable:
 1. Built for Availability:
     Built for 99.95% - 99.99% service availability, depending on the S3 tier.
 2. Designed for Durability (durability means, is your file gonna be lost at some point)
-    Designed for 99.99999999% (9 decimal places) durability ofr data stored in S3.
+    Designed for 99.99999999% (9 decimal places) durability for data stored in S3.
 
 
 S3 Standard:
@@ -107,12 +107,12 @@ Securing Your Data:
 3. Bucket Policies:
     S3 bucket policies specify what actions are allowed or denied (e.g., allow user Alice to PUT but not DELETE objects in the bucket).
     Bucket Policies are bucket-wide. Similar to IAM policy, Bucket policies are JSON that you can attach to a bucket. It applies across buckets as a whole. 
-    Whereas, for ACL, you can drill down your permission to individule object.
+    Whereas, for ACL, you can drill down your permission to individule files within your bucket.
 
 
-Strong Read-After-Write Consistency
+Strong Read-After-Write Consistency (is the data consistency model in S3)
 1. After a successful write of a new object (PUT) or an overwrite of an existing object, any subsequent read request immediately receives the latest version of the object.
-2. Strong consistency for list operations, so after a write, you can immdediately perform a listing of the objects in a bucket with all changes reflected.
+2. Strong consistency for list operations, so after write a file to S3 bucket, you can immdediately perform a listing of the objects in a bucket with all changes reflected.
 
 The consistency model for S3 is strong read-after-write. As soon as you write something to S3, you should be immediately available.
 

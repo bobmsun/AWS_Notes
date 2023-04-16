@@ -50,12 +50,133 @@ EC2 Pricing Options:
         A physical EC2 server dedicated for your use. The most expensive option.
 
 
-On-Demand Instances:
+EC2 Pricing Option - On-Demand Instances:
 1. Flexible: 
     Low cost and flexibility of Amazon EC2 without any upfron payment or long-term commitment.
 2. Short-Term: 
     Applictions with short-term, spiky, or unpredictable workloads that cannot be interrupted.
+3. Testing the Water:
+    Applications being developed or tested on Amazon EC2 for the first time.
+
+
+EC2 Pricing Option - Reserved Instances:
+    Predictale Usage:
+        Applications with steady state or predictale usage.
+    Specific Capacity Requirements:
+        Applications that require reserved capacity.
+    Pay up Front:
+        You can make upfront payments to reduce the total computing costs even further.
+    Standard RIs:
+        Up to 72% off the on-demand price.
+    Convertible RIs:
+        up to 54% off the on-demand price. Has the option to change to a different RI type of equal or greater value.
+    Scheduled RIs:
+        Launch within the time window you define. Match your capacity reservation to a predictable recurring schedule that only requires a fratcion of a day, week, or month.
+Reserved Instances operate at a regional level.
+
+
+Savings Plans with Reserved Instances:
+1. Save up to 72%:
+    All AWS compute usage, regardless of instance type or Region.
+2. Commit to 1 or 3 Years:
+    Commit to use a specific amount of compute power (measured by the hour) for a 1-year or 3-year period.
+3. Super Flexible:
+    Not only EC2, this also includes serverless technologies like Lambda and Fargate.
+
+
+EC2 Pricing Options - When to Use Spot Instances:
+    Flexible:
+        Applications that have flexible start and end times
+    Cost Sensitive:
+        Applications that are only feasible at very low compute prices.
+    Urgent Capacity:
+        Users with an urgent need for large amounts of additional computing capacity.
+    Image rendering
+    Genomic sequencing
+    Algorithmic trading engines.
+
+
+EC2 Pricing Options - Dedicated Hosts
+    Compliance
+        Regulatory requirements that may not support multi-tenant virtualiztion.
+    Licensing
+        Great for licensing that does not support multi-tenancy or cloud deployments
+    On-Demand
+        Can be purchased on-demand (hourly).
+    Reserved
+        Can be purchased as a reservation for up to 70% off the on-demand price.
+
+
+Explore AWS services and pricing using the AWS Pricing Calculator.
+
+
+Exam Tips:
+EC2 is like a VM, hosted in AWS instead of your own data center.
+    Select the capacity you need right now.
+    Grow and shrink when you need.
+    Pay for what you use.
+    Wait minutes, not months.
+
+Exam Tips:
+EC2 Instance Pricing Options:
+    On-Demand:
+        Pay by the hour or the second, depending on the type of instance you run. Great for flexibility.
+    Reserved:
+        Reserved capacity for 1 or 3 years.
+        Up to 72% discount on the hourly change.
+        Great if you have known, fixed requirements.
+    Spot:
+        Purchase unused capacity at a discount of up to 90%. Prices fluctuate with supply and demand. Great for applications with flexible start and end times.
+    Dedicated:
+        A physical EC2 server dedicated for your use. Great if you have server-bound licenses to reuse or compliance requirements.
     
+
+
+Chapter 5.3 - AWS Command Line
+
+Lesson Breakdown
+    The AWS Management Console
+    Command Line Interactions
+    Lesson Objectives
+    AWS CLI - Demo
+    Exam Tips
+
+
+The AWS Management Console
+
+AWS Command Line:
+    You can also interact with AWS using the Command Line.
+    The AWS command line allows you to interact with AWS simply by typing commands.
+    In this example we will list all our buckets in S3.
+        aws s3 ls
+    
+Lesson Objectives:
+1. Launch an EC2 Instance
+    This is where we will use the AWS CLI.
+2. Create an IAM User
+    Give the user permissions to access and create S3 resources.
+3. Configure the AWS CLI
+    Configure the CLI using teh IAM user's credentials.
+    Use the CLI to create an S3 bucket and upload a file.
+
+AWS CLI Exam Tips
+Least Privilege:
+    Always give your users the minimum amount of access required to do their job.
+Use Groups:
+    Create IAM groups and assign your users to groups.
+    Group permissions are assigned using IAM policy documents.
+    Your users will automatically inherit the permissions of the group.
+
+
+3 AWS CLI Exam Tips:
+1. Secret Access Key:
+    You will only see this once! If you lose it, you can delete the access key ID and secret access key and regenerate them. You will need to run "aws configure" again.
+2. Don't Share Key Pairs
+    Each deleoper should have their own access key ID and secret access key. Just like passwords, they should not be shared.
+3. Supports Linux, Windows, MacOS
+    You can install the CLI on your Mac, Linux, or Windows PC. You can also use it on EC2 instances.
+
+
 
 
 

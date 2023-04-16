@@ -77,7 +77,7 @@ But all the permissions that are controlled within AWS come back to IAM policy d
 
 When you create users/groups/policies, that's happening on the global level. You can't have a user just sit within a particular region.
 
-Users/Groups/Policies are all global.
+Users/Groups/Policies are all global. You can't have a user that just sit within a particular region.
 
 AWS has a lot of AWS created and managed policies.
 你也可以自己 create customized policy
