@@ -146,6 +146,7 @@ Chapter 4.2 - Securing Your Bucket with S3 Block Public Access
 
 Lesson BreakDown:
 Object ACLs vs. Bucket Policies
+(Go into our console, create our very first S3 bucket, upload some files to it, and try to make it public)
 Demo: Create an S3 Bucket
 Exam Tips
 
@@ -156,7 +157,7 @@ Access Constrol List:
 Object ACLs: Object ACLs work on an individual object level.
 
 Bucket Policy:
-Bucket policies work on an entire bucket level.
+Bucket policies work on an entire bucket level. Apply on the entire bucket.
 
 
 Exam Tips:
@@ -191,9 +192,9 @@ S3 scales automatically to meet demand. Many enterprises will put static website
 
 Exam Tips:
 What to Know for the Exam
-1. Bucket Policies: Make entire buckets public using bucket policies.
+1. Bucket Policies: Make entire buckets public using bucket policies. (so you don't need to keep making individual object public. This will save you a lot of time when you are dealing with websites with a thousand html pages.)
 2. Static Content: use S3 to host static content only (not dynamic).
-3. Automatic Scaling: S3 scales automatically with demand.
+3. Automatic Scaling: S3 scales automatically with demand. (In the scenario-based question where you are not sure about the demand and it's a static website, you may put it up on S3, because then you don't need to deal with things like loading balancing, EC2 instances, provisioning, etc.)
 
 
 
@@ -221,6 +222,11 @@ Advantages of Versioning
     Can be integrated with lifecycle rules.
 5. Supports MFA:
     Can support multi-factor authenication.
+    （这个考的很多
+    What the scenario-based question will basically be around is to protect your objects in S3 from being accidentally deleted and that includes all versions of the object, how can you do that?
+    You can enable multi-factor authentication to delete an object. You need two phones to delete your object.）
+
+If you want to recover a deleted object, what you need to do is the delete the "delete marker".
 
 Exam Tips:
 5 Tips for Versioning Objects:
@@ -229,6 +235,9 @@ Exam Tips:
 3. Cannot be Disabled: Once enabled, versioning cannot be disabled - only suspended.
 4. Lifecycle Rules: Can be integrated with lifecycle rules.
 5. Supports MFA: Can support multi-factor authentication.
+(IF you get a scenario-based question talking about you need to protect your object from accidental deletion:
+    one way is, you want to trun versioning on.
+    But you can also enable multi-factor authentication so that you need two phones to delete an object.)
 
 
 
@@ -255,6 +264,7 @@ S3 Standard:
 3. Suitable for Most Workloadd
     The default stoarge class.
     Use cases include websites, content distribution, mobile and gaming applications, and big data analytics.
+Host static website (a website that does not requrie a backend Database connection or is not dynamic), you can think of S3 standard.
 
 
 S3 Standard-Infrequent Access (S3 Standard-IA)
@@ -273,6 +283,7 @@ S3 One Zone-Infrequent Access
 Like S3 Standard-IA, but data is stored redundantly within a single AZ.
 Cost 20% less than regular S3 Standard-IA.
 Great for long-lived, infrequently accessed, non-critical data.
+(So don't store data that you can't afford losing access to in S3 One Zone - Infrequent Access)
 99.5% Availability
 99.999999999% (11 9's) Durability
 
@@ -293,7 +304,7 @@ Glacier and Glacier Deep Archive
 3 Glacier Options
     You pay each time you access your data.
     Use only for achiving data.
-    Glacier is cheap storage.
+    Glacier is cheap storage. (Glacier is very cheap)
     Optimized for data that is very infrequently accessed.
     99.99% Availability
     99.999999999% (11 9's) Durability
@@ -305,6 +316,21 @@ Ideal storage calss for archive data that does not require immediate access but 
 
 Option 3: Glacier Deep Archive
 Cheapest Storage class and designed for custoemrs that retain data sets for 7-10 years or longer to meet customer needs and regulatory compliance requirements. The standard retrieval time is 12 hours, and the bulk retrieval time is 48 hours.
+
+
+总结：
+Essentially, you data is always going to be stored in >=3 availability zones apart from S3 One Zone.
+
+S3 Storage Classes - Storage Costs
+S3 Standard: highest cost
+S3 Intelligent-Tiering: Cost optimized for unknown access patterns
+S3 Standard-Infrequent Access: retrival fee applied
+S3 One Zone-Infrequent Access: retrival fee applied
+
+S3 Glacier Storage Costs:
+S3 Glacier: high cost                                    <--  instant retrival
+S3 Glacier Flexible Retrieval: Retrieval fee applies     <--  could be minites, but up to 12 hours
+S3 Glacier Deep Archive: Retrieval fee applies           <-- 12 hours, up to 48 hours
 
 
 
@@ -325,7 +351,7 @@ S3 Standard (keep for 30 days) --> S3-IA (after 30 days)  -->  Glacier (after 90
 
 
 Combining Lifecycle Management with Versioning:
-You can use lifecyclemanagement of move different versions of to different storage tiers.
+You can use lifecycle management of move different versions of to different storage tiers.
 
 
 Exam Tips:
@@ -360,9 +386,12 @@ Governance Mode:
 
     With governance mode, you protect objects against being deleted by most users, but you can still grant some users permission to alter the retention settings or delete the object if necessary.
 
+If you got a scenario-based questions where you do need some users to be able to alter or delete an object, then you want Governance mode.
+
+If, however, you want to make sure nobody can delete an object, then you want Compliance mode.
 
 Compliance Mode:
-    In compliance mode, a protected object version can't be overwritten or deleted by any user, including the root user in your AWS account. When an object is locked in compliance mode, its retention mode can't changed and its retention period can't be shortened. Compliance mode ensures an object version can't be overwritten or deleted for the duration of the retention period.
+    In compliance mode, a protected object version can't be overwritten or deleted by any user, including the root user in your AWS account. When an object is locked in compliance mode, its retention mode can't changed and its retention period can't be shortened. (So if you set your retention period to be a year, then you cannot go in and change it even if you are the root user.) Compliance mode ensures an object version can't be overwritten or deleted for the duration of the retention period.
 
 
 Retention Periods:
@@ -378,10 +407,13 @@ Legal Holds:
 Glacier Vault Lock:
     S3 Glacier Vault Lock allows you to easily deploy and enforce compliance controls for individual S3 Glacier vaults with a vault lock policy. You can specify controls, such as WORM, in a vault lock policy and lock the policy from future edits. Once locked, the policy can no longer be changed.
 
+    So essentially, Glacier Vault Lock is a way of applying a WORM model to Glacier. That's all Glacier Vault Lock is.
+
 
 Exam Tips:
 3 Object Lock Tips:
 1. Use S3 Object Lock to store objects using a write once, read many (WORM) model.
+(You you see WORM in a scenario-based question, then you're gonna want to use S3 object lock to store your obejct).
 2. Object Lock can be on individual objects or applied across the bucket as a whole.
 3. Object Lock comes in two modes: governance mode and compliance mode.
 
@@ -393,13 +425,18 @@ S3 Object Lock Modes:
     With Governance mode, users can't overwrite or delete an object version or alter its lock setting unless they have special permissions.
 
 S3 Glacier Vault Lock Exam Tips:
+(If you see a scenario-based question where it talks about WORM model with Glacier, then think immediately of S3 Glacier Vault Lock)
 1. S3 Glacier Vault Lock allows you to easily deploy and enforce compliance controls for individual S3 Glacier vaults with a vault lock policy.
 2. You can specify controls, such as WORM, in a vault lock policy and lock the policy from future edits. Once locked, the policy can no longer be changed.
+
+To summarize, if you see a scenario-based question that talks about S3 and you want to use a WORM model, I want you to think about S3 object lock that come in two different modes - Compliance mode and Governance mode. If they are talking about WORM model with Glacier, I want you to immediately think of S3 Glacier Vault Lock.
 
 
 
 
 Chapter 4.8 - Encrypting S3 Objects
+
+This lecture we will look at how we can use encryption to secure S3 bucket.
 
 Lesson Breakdown:
 Types of Encryption
@@ -411,11 +448,11 @@ Exam Tips
 Types of Encryption:
 1. Encryption in Transit
     SSL/TLS
-    HTTPS
-2. Encryption at Rest: Server-Side Encryption
+    HTTPS  (HTTPS mean it's encrypted)
+2. Encryption at Rest (Object is sitting in the machine/bucket): Server-Side Encryption
     SSE-S3: S3-managed keys, using AES 256-bit encryption
     SSE-KMS: AWS Key Management Service-managed keys
-    SSE-C: Customer-provided keys
+    SSE-C: Customer-provided keys (you provide the key, not AWS)
 3. Encryption at Rest: Client-Side Encryption
     you encrypt the files yourself before you upload them to S3.
 
@@ -428,7 +465,7 @@ Enforcing Server-Side Encryption:
     You can also enforce-encryption using a bucket policy. This method sometimes comes up in the exam.
 
 
-Every time a file is uploaded to S3, a PUT request is initiated.
+Every time a file is uploaded to S3, a PUT request is initiated by our browser.
 
 
 Enforcin Server-Side Encryption:
@@ -458,6 +495,8 @@ Exam Tips:
     A bucket policy can deny all PUT requests that don't include the x-amz-server-side-encryption parameter in the request header.
 
 
+
+
 Chapter 4.9 - Optimizing S3 Performance
 
 Lesson Breakdown:
@@ -470,6 +509,8 @@ Exam Tips
 
 
 S3 Prefixes Exaplained:
+(The S3 prefix is just the folders inside our bucket. That's all it is.
+The prefix is just the folders. It doesn't include the object name and the file type. It's literally just the folders within the bucket.)
 1. mybucketname/folder1/subfolder1/myfile.jpg   > /folder1/subfolder1
 2. mybucketname/folder2/subfolder1/myfile.jpt   > /folder2/subfolder1
 3. mybucketname/folder3/myfile.jpg              > /folder3
@@ -481,10 +522,14 @@ S3 Performance
 
     You can also achieve a high number of requests: 3,500 PUT/COPY/POST/DELETE and 5,500 GET/HEAD requests per second, per prefix.
 
+    The more prefixes you have in your S3 bucket, the higher performance you are going to be able to get. 
+
 
 S3 Performance
-1. You can get better performance by spreading your reads across different prefixes. For example, if you are using 2 prefixes. For eaxample, if you are using 2 prefixes, you can achieve 11,000 requests per second.
+1. You can get better performance by spreading your reads across different prefixes (across different directories). For example, if you are using 2 prefixes. For eaxample, if you are using 2 prefixes, you can achieve 11,000 requests per second.
 2. If we used all 4 prefixes in the last example, you would achieve 22,000 requests per second.
+
+The more folders/subfolders you have in your bucket, the better performance you can get from S3 for your application.
 
 
 Limitations with KMS
@@ -493,6 +538,7 @@ S3 Limitations when using KMS
 2. When you upload a file, you will call GenerateDataKey in the KMS API.
 3. When you download a file, you will call Decrypt in the KMS API.
 
+KMS comes with built-in limit.
 
 KMS Request Rates:
 1. Uploading/downloading will count toward the KMS quota.
@@ -516,6 +562,7 @@ S3 Byte-Range Fetches
 
 Exam Tips:
 1. mybucketname/folder1/subfolder1/myfile.jpg   > /folder1/subfolder1
+    The more prefixes you use with your application using S3, the better performance you're going to get.
 2. You can also achieve a high number of requests: 3,500 PUT/COPY/POST?DELETE and 5,500 GET/HEAD requests persecond, per prefix.
 3. You can get better performance by spreading your reads across different prefixes. For example, if you are using 2 prefixes, you can achieve 11,000 requests per second.
 
@@ -530,12 +577,14 @@ Use multipart uploads to increase performance when uploading files to S3.
 Should be used for any files over 100 MB and must be used for any file over 5 GB.
 
 Use S3 byte-range fetches to increase performance when downloading files to S3.
-
+(split the file into different byte-ranges and you download at the same time.)
 
 
 
 
 Chapter 4.10 - Backing up Data with S3 Replication
+
+(S3 Replication used to call Cross Region Replication, bucause you do it from one region to another, but now you can do it from one buckt to another bucket in the same region as well. So it's renamed to S3 Replication rather than Cross Region Replication.)
 
 S3 Replication
 Console Demo
@@ -543,15 +592,20 @@ Exam Tips
 
 
 S3 Replication:
+(S3 Replication is a way replication objects from one bucket to another)
 1. You can replicate objects from one bucket to another.
-    Versioning must be enabled on both the source and destionation buckets.
+    Versioning must be enabled on both the source and destionation buckets in order for this to work.
 2. Objects in an existing bucket are not replicated automatically.
     Once replication is turned on, all subsequent updated objects will be replicated automatically.
-3. Delete markers are not replicated by default.
-    Deleting individual versions or delete markers will not be replicatd.
+
+    AWS announced a new Amazon S3 Batch Replication feature on 08 FEB 2022, which allows replication of existing objects to different buckets on demand. Note that new AWS products, services or features must be generally available (GA) for at least 6 months prior to it appreaing on certification exams. 
+3. Delete markers are not replicated by default (however you can turn that on if you want).
+    Deleting individual versions or delete markers will not be replicatd by default.
+
 
 Exam Tips:
 Remember What S3 Replication is
+(it used to call Cross Region Replication 考试题可能还没更新名字)
 Tip 1: You can replicate objects from one bucket to another.
 Tip 2: Objects in an existing bucket are not replicated automatically
 Tip 3: Delete markers are not replicated by default
@@ -611,6 +665,13 @@ Versioning Objects - Exam Tips:
 3. Cannot Be Disabled: Once enabled, versioning cannot be disable - only suspended.
 4. Lifecycle Rules: Can be integrated with lifecycle rules.
 5. Supports MFA: Can support multi-factor authentication.
+
+
+S3 Glacier: long-term dta archiving that occasionaly needs to be accessed within a few hours or minutes.
+
+S3 Glacier Deep Archive: Rarely accessed data archining with a default time of 12 hours (e.g. financial records for regulatory purposes)
+
+Note: Amazon S3 Glacier Instant Retrieval is a new archive storage class that delivers the lowest cost storage for long-lived data that is rarely accesssed and requires milliseconds retrieval. In addition, AWS has renamed the existing S3 Glacier storage class to S3 Glacier Flexible Retrieval.
 
 
 Lifecycle Managelemt with S3

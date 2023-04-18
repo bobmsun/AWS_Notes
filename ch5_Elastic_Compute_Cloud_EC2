@@ -36,16 +36,16 @@ Introducing EC2:
     Expectation that the application will "grow into" it.
     Lots of wasted capacity.
 
-    有了 EC2 之后，wait minutes, not months
+有了 EC2 之后，wait minutes, not months
 
 
 EC2 Pricing Options:
     On-Demand: 
         Pay by the hour or the second, depending on the type of instance you run.
     Reserved: 
-        Reserved capacity for 1 or 3 years. Up to 72% discount on the hourly charge.
+        Reserved capacity for 1 or 3 years (you get into a contract with AWS between 1 to 3 years). Up to 72% discount on the hourly charge. (The more you pay upfront, the more discount you will get.)
     Spot:
-        Purchase unused capacity at discount of up to 90%. Prices fluctuate with supply and demand.
+        Purchase unused capacity at discount of up to 90%. Prices fluctuate with supply and demand. (The price of your EC2 instances moves up and down).
     Dedicated:
         A physical EC2 server dedicated for your use. The most expensive option.
 
@@ -61,23 +61,26 @@ EC2 Pricing Option - On-Demand Instances:
 
 EC2 Pricing Option - Reserved Instances:
     Predictale Usage:
-        Applications with steady state or predictale usage.
+        Applications with steady state or predictale usage. (You understand the usage pattern of your application)
     Specific Capacity Requirements:
         Applications that require reserved capacity.
     Pay up Front:
         You can make upfront payments to reduce the total computing costs even further.
     Standard RIs:
-        Up to 72% off the on-demand price.
+        Up to 72% off the on-demand price. The more you pay upfront, the more discount you will get.
     Convertible RIs:
         up to 54% off the on-demand price. Has the option to change to a different RI type of equal or greater value.
+        
+        There are different types of EC2 instances, e.g. compute-based instances, GPU-based instances, etc.
+
     Scheduled RIs:
         Launch within the time window you define. Match your capacity reservation to a predictable recurring schedule that only requires a fratcion of a day, week, or month.
-Reserved Instances operate at a regional level.
+Reserved Instances operate at a regional level. -> If you reserve an instance in US East 1, you can't apply that reservation to Pairs, London.
 
 
 Savings Plans with Reserved Instances:
 1. Save up to 72%:
-    All AWS compute usage, regardless of instance type or Region.
+    All AWS compute usage, regardless of instance type or Region. The more you pay upfront, you more discount you will get. The max discount you can get is 72%.
 2. Commit to 1 or 3 Years:
     Commit to use a specific amount of compute power (measured by the hour) for a 1-year or 3-year period.
 3. Super Flexible:
@@ -85,26 +88,29 @@ Savings Plans with Reserved Instances:
 
 
 EC2 Pricing Options - When to Use Spot Instances:
+    Spot price moves around. Basically, you say which price you want to have instance capacity at. Then it hits that price, you have your spot instances. As soon as it moves away from that price, you lose your spot instances.
+
     Flexible:
-        Applications that have flexible start and end times
+        Applications that have flexible start and end times.
     Cost Sensitive:
         Applications that are only feasible at very low compute prices.
     Urgent Capacity:
         Users with an urgent need for large amounts of additional computing capacity.
-    Image rendering
-    Genomic sequencing
-    Algorithmic trading engines.
+        e.g.
+        Image rendering
+        Genomic sequencing
+        Algorithmic trading engines.
 
 
 EC2 Pricing Options - Dedicated Hosts
     Compliance
-        Regulatory requirements that may not support multi-tenant virtualiztion.
+        Regulatory requirements that may not support multi-tenant virtualiztion. Needs to be on dedicated hardware.
     Licensing
         Great for licensing that does not support multi-tenancy or cloud deployments
     On-Demand
         Can be purchased on-demand (hourly).
     Reserved
-        Can be purchased as a reservation for up to 70% off the on-demand price.
+        Can be purchased as a reservation for up to 70% off the on-demand price. (Again, the more you pay upfront, you more discount you will get.)
 
 
 Explore AWS services and pricing using the AWS Pricing Calculator.
