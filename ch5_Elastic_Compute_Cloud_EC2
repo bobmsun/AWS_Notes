@@ -154,6 +154,7 @@ AWS Command Line:
     You can also interact with AWS using the Command Line.
     The AWS command line allows you to interact with AWS simply by typing commands.
     In this example we will list all our buckets in S3.
+    Tell me all the s3 buckets that exist in this s3 account.
         aws s3 ls
     
 Lesson Objectives:
@@ -162,8 +163,45 @@ Lesson Objectives:
 2. Create an IAM User
     Give the user permissions to access and create S3 resources.
 3. Configure the AWS CLI
-    Configure the CLI using teh IAM user's credentials.
+    Configure the CLI using the IAM user's credentials.
     Use the CLI to create an S3 bucket and upload a file.
+
+demo:
+下载了 pem file MyNVKP.pem
+打开 mac 的 terminal
+cd Downloads
+
+ls       (should be able to see MyNVKP.pem)
+
+chmod 400 MyNVKP.pem   (in order to access my ec2 instance, I need to change the permission on this file)
+
+ssh ec2-user@54.226.207.77 -i MyNVKP.pem
+[ ssh (user name)@(public ipv4 address) -i MyNVKP.pem ]
+
+sudo su    -->  elevate the previlleges to root, now have root user access
+
+yam update -y      (update to the latest patches, just to make sure our ec2 instances have all the security patches installed)
+
+aws s3 ls
+(会显示：Unable to locate credentials. You can configure credentials by running "aws configure".)
+(这是因为，don't have your credentials to log into aws, so need to run aws configure)
+
+aws configure
+(will ask for AWS Access Key ID & AWS Secret Access Key)
+
+再run
+aws s3 ls
+就可以了
+
+aws s3 mb s3://gsagdsagdadsaggda      (mb - make bucket)
+这样就 create 了一个 bucket
+
+echo "Hello" > hello.txt
+cat hello.txt      (会 print out： Hello)
+
+aws s3 cp hello.text s3://gsagdsagdadsaggda
+(这样就 upload 了 file to the bucket)
+
 
 AWS CLI Exam Tips
 Least Privilege:
@@ -181,6 +219,384 @@ Use Groups:
     Each deleoper should have their own access key ID and secret access key. Just like passwords, they should not be shared.
 3. Supports Linux, Windows, MacOS
     You can install the CLI on your Mac, Linux, or Windows PC. You can also use it on EC2 instances.
+
+
+
+
+Chapter 5.4 - Using Roles
+
+Lesson Breakdown:
+    What is an IAM Role?
+    Roles Are Temporary
+    What Else Can Roles Do?
+    Console Demo
+
+
+What is an IAM Role?
+    A role is an identity you can create in IAM that has specific permissions. A role is similar to a user, as it is an AWS identity with permission policies that determine what the identity can and cannot do in AWS.
+
+    However, instead of being uniquely associated with one person, a role is intended to be assumable by anyone who needs it.
+
+
+Roles Are Temporary
+
+A role does not have standard long-term credentials the same way passwords or access keys do. Instead, when you assume a role, it provides you with temporary security creditials for your role session.
+
+
+What Else Can Roles Do?
+
+Roles can be assumed by people, AWS architecture, or other system-level accounts.
+
+Roles can allow cross-account access. This allows one AWS account the abilty to interact with resources in other AWS accounts.
+
+
+Console Demo:
+1. Create an IAM Role: 
+    Ensure it has S3 access
+2. Create an EC2 Instance:
+    Attach the role we just created.
+3. Create S3 Bucket
+    Create a bucket in S3.
+4. Access S3 
+    Try to access S3 from our EC2 instance.
+
+Exam Tips:
+What to Remember When using Roles:
+1. The Perferred Option:
+    Roles are preferred from a security perspective.
+2. Avoid Hard-Coding Your Credentials
+    Roles allow you to provide access without the use of access key IDs and secret access keys.
+3. Policies
+    Policies control a role's permissions.
+4. Updates
+    You can update a policy attached to a role, and it will take immediate effect.
+5. Attaching and Detaching
+    You can attach and detach roles to running EC2 instances without having to stop or terminate those instances.
+
+In the exam 中，你可能会被问到：
+whether you should use access key ID or secret access key ID for you application, or you should just grant your EC2 instance a role that gives you the ability to interact with another service in AWS:
+You 应该 always choose roles over hard coding credentials
+
+
+
+Chapter 5.5 - Security Groups and Bootstrap Scripts
+
+Lesson Breakdown:
+    How Humans Sense Things
+    How Computers Communicate
+    Security Groups
+    Bootstrap Scripts
+    Console Demo
+    Review
+
+Basic Human Senses
+    We see, hear, and feel using different mechanisms
+    
+    Light: we see light using our eyes
+    Sound: we hear sound using our ears
+    Heat: we feel heat using our skin
+
+How Computers Communicate
+    Linus 
+        SSH, Port 22
+    Windows
+        RDP, Port 3389     --> this is how you interface with Windows machine remotely
+    HTTP
+        Web Browsing
+        Port 80
+    HTTPS
+        Encrypted Web Browsing (SSL)
+        443
+
+Security Groups
+    Security groups are virtual firewalls for your EC2 instance. Be default, enverything is blocked.
+    To let everything in: 0.0.0.0/0
+    In order to be able to communicate to your EC2 instances via SSH/RDP/HTTP, you will need to open up the correct ports.
+
+Bootstrap Scripts
+    A script that runs when the instance first runs
+    Adding these tasks at boot time adds to the amount of time it takes to boot the instance. However, it allows you to automate the installation of applications.
+
+Bootstrap Script Example:
+#!/bin/bash        --> 这里是 shebang，是path to our interpreter
+yum install httpd -y
+#installs apache
+yum service httpd start
+# starts apache
+
+Security Groups Exam Tips:
+    Tip 1: Changes to security groups take effect immediately.
+    Tip 2: You can have any number of EC2 instances within a security group.
+    Tip 3: You can have multiple security groups attached to EC2 instances.
+    Tip 4: All inbound traffic is blocked by default.
+    Tip 5: All outbound traffic is allowed.
+
+    Bootstrap Scripts:
+        A bootstrap script is a script that runs when the instance first runs. 
+        It passes user data to the EC2 instance and can be used to install applications (like web servers and databases), as well as do updates and more.
+
+
+
+Chapter 5.6 - EC2 Metadata and User Data
+
+Lesson Breakdown
+    What is EC2 Metadata?
+    Retrieving Metadata
+    Using User Data to Save Metadata
+    Demo
+    Exam Tips
+
+What is EC2 Metadata?
+    EC2 metadate is simply data about your EC2 instance.
+    This can include information suh as private IP address, public IP address, hostname, security groups, etc.
+
+Retrieving Metadata
+    Using the curl command, we can query metadata about our EC2 instance.
+
+    e.g.
+        curl http://169.254.169.254/latest/meta-data/
+
+Using User Data to Save Metadata
+    In this simple bootstrap (user data) script, we use the curl command to save our EC2 metadata.
+
+    e.g.
+        curl http://169.254.169.254/latest/meta-data/local-ipv4 > myIP.txt
+
+Exam Tips: user Data vs. Metadata
+    User data is simple bootstrap scripts.
+    Metadata is data about your EC2 instances.
+    You can use bootstrap scripts (user data) to access metadata.
+
+
+
+
+Chapter 5.7 - Networking with EC2
+
+Lesson Breakdown
+    Different Virtual Networking Options
+    ENI
+    Enhanced Networking
+    ENA vs. VF
+    EFA
+    Exam Tips
+
+Networking with EC2
+    You can attach 3 different types of virtual networking cards to your EC2 instances
+
+    ENI: Elastic Network Interface
+        For basic, day-to-day networking
+    
+    Enhanced Networking
+        Uses single root I/O virtualization (SR-IOV) to provide high performance
+    
+    EFA: Elastic Fabric Adapter
+        Accelerates High Performance Computing (HPC) and machine learning applications
+    
+ENI
+    An ENI is simply a virtual network card that allows:
+        Private IPv4 Addresses
+        Public IPv4 Address
+        Many IPv6 Address
+        MAC Address
+        1 or More Security Groups
+
+Common ENI Use Cases
+    Create a management network.
+    Use network and security appliances in your VPC.
+    Create dual-homed instances with workloads/roles on distinct subnets.
+    Create a low-budget, high-availability solution.
+
+Enhanced Networking
+    What is Enhanced Networking?
+        For High-Performance Networking between 10 Gbps - 100 Gbps
+
+    Single Root I/O Cirtualization (SR-IOV)
+        SR-IOV provides higher I/O performance and lower CPU utilization
+    
+    Performance
+        Provides higher bandwidth, higher packet per second (PPS) performance, and consistently lower inter-instance latencies
+
+Depending on your instance type, enhanced networking can be enabled using:
+    Elastic Network Adapter (ENA):
+        Supports network speeds of up to 100 Gbps for supported instance types.
+    INTEL 82599 Cirtual Function (VF) interface:
+        Supports network speeds of up to 10 Gbps for support instance types. Typically used on oler instances.
+
+In any scenario question: choose ENA over VF interface
+
+What is an EFA?
+    Elastic Fabric Adapter
+    1. A network device you can attach to your Amazon EC2 instance to accelerate High Performance Computing (HPC) and maching learning applications
+    2. Provides lower and more consistent latency and higher throughput than the TCP transport traditionaly used in cloud-based HPC systems.
+
+EFA can use OS-bypass
+    It makes is a lot faster with much lower latency.
+    OS-bypass enables HPC and machine learning applications to bypass the operating system kernel and communicate directly with the EFA device. 
+    Not currently supported with Windows - only Linux.
+
+Exam Tips:
+    For different scenarios on the exam, choose the correct networking device.
+    1. ENI:
+        For basic networking. Perhaps you need a separate management network from your production network or a separate logging network, and you need to do this at a low cost. 
+        In this scenario, use multiple ENIs for each network.
+    2. Enhanced Networking 
+        For when you need speeds between 10 Gbps and 100 Gbps. Anywhere you need reliable, high throughput.
+    3. EFA
+        For when you need o accelerate High Performance Computing (HPC) and machine learning applications or if you need to do an OS-bypass. 
+        If you see a scenario question mentioning HPC ro ML and asking what network adapter you want, choose EFA.
+
+
+
+Chapter 5.8 - Optimizing with EC2 Palcement Groups
+
+Lesson Breakdown
+    3 Types of Placement Groups
+    Cluster
+    Spread
+    Partition
+    Exam Tips
+
+3 Types of Placement Groups: Cluster, Spread, Partition
+
+Cluster Placement Groups
+    Grouping of instances within a single Availability Zone. Recommended for applications that need low network latency, high network throughput, or both.
+    Fact: Only certain instance types can be lauched into a cluster placement group.
+
+Spread Placement Groups:
+    A spread placement group is a group of instances that are each placed on distinct underlying hardware.
+    Spread placement groups are recommended for applications that have a small number of critical instances that should be kept separate from each other.
+    Scenario Questions: used for individual instances
+
+Partition Placement Groups
+    Each partition placement group has its own set of racks. Each rack has its own network and power source. No two partitions within a placement group share the same racks,
+    allowing you to isolate the impact of hardware failure within your application.
+
+    EC2 divides each group into logical segments called paritions.
+
+    Scenario Questions: used for mulitple instances
+
+Exam Tips: 
+3 Types of Placement Groups
+Cluster Placement Groups:
+    Low network latency, high network throughput
+Spread Placement Groups:
+    Individual critical EC2 instances
+Partition Placement Groups:
+    Mulitple EC2 instances; HDFS, HBase, and Cassandra
+
+Exam Tips:
+1. A cluster placement group can't span multiple Availability Zones, whereas a spread placement group and partition placement group can.
+2. Only certain types of instances can be launced in a placement group (compute optimized, GPU, memeory optimized, storage optimized).
+3. AWS recommends homogenous instances within cluster placement groups.
+4. You can't merge placement groups.
+5. You can move an existing instance into a placement group. Before you move the instance, the instance must be in the stopped state. 
+    You can move or remove an instance using the AWS CLI or an AWS SDK, but you can't do it via the console yet.
+
+
+
+Chapter 5.9 - Solving Licensing Issues with Dedicated Hosts
+
+Lesson Breakdown:
+    The Different Pricing Models for EC2
+    Dedicated Hosts
+    Exam Tips
+
+
+The Different Pricing Models for EC2
+On-Demand:
+    Pay by the hour or the second, depending on the type of instance you run.
+Reserved:
+    Reserved capacity for 1 or 3 years. Up to 72% discount on the hourly charge.
+Spot:
+    Purchase unused capacity at a discount of up to 90%. Prices fluctuate with supply and demand.
+Dedicated:
+    A phsical EC2 server dedicaed for your use. The most expensive option.
+
+
+Dedicated Hosts
+    Complicance
+        Regulatory requirements that may not support multi-tenant virtualization.
+    Licensing:
+        Great for licensing that does not support multi-tenancy or cloud deployments.
+    On-Demand:
+        Can be purchased on-demand (hourly).
+    Reserved:
+        Can be purchased as a reservation for up to 70% off the on-demand price.
+
+
+Exam Tips:
+For any question that talks about special licensing requirements, I want you to think about dedicated hosts.
+
+An Amazon EC2 Dedicated Host is a physical server with EC2 instance capacity fully dedicated to your use. 
+Dedicated Hosts allow you to use your existing per-socket, per-core, or per-VM software licenses, including Windows Server, Microsoft SQL Server, and SUSE Linux Enterprise Server.
+
+
+
+Chapter 5.10 - Timing Workloads with Spot Instances and Spot Fleets
+
+Lesson Breakdown
+    What Are EC2 Spot Instances?
+    Spot Prices
+    Spot Blocks
+    Use Cases
+    Terminating Spot Instances
+    What Are Spot Fleets?
+    Launch Pools
+    Strategies
+    Exam Tips
+
+What Are EC2 Spot Instances?
+    Amazon EC2 Spot Instances let you take advantage of unused EC2 capacity in the AWS Cloud. Spot Instancts are available at up to a 90% discount compared to On-Demand prices.
+
+When to Use Spot Instances?
+    Stateless, fault-tolerant, or flexible applications
+    Applications such as big data, containerized workloads, CI/CD, high-performance computing (HPC), and other test and developement workloads.
+
+Spot Prices:
+    To use Spot Instances, you must first decide on your maximum Spot price. The instance will be provisioned so long as the Spot price is BELOW your maximum Spot price.
+    The hourly Spot price varies depending on capacity and region.
+    If the Spot price goes above your maximum, you have 2 minutes to choose whether to stop or terminate your instance.
+
+Spot Blocks:
+    You may also use a Spot block to stop your Spot Instances from being terminated even if the Spot price goes over your max Spot price. 
+    You can set Spot blocks for between 1 to 6 hours currently.
+
+Use Cases:
+    Spot Instances are NOT good for:
+        Persistent workloads
+        Critical jobs
+        Databases
+
+What Are Spot Fleets?
+    A Spot Fleet is a collection of Spot Instance and (optionally) On-Demand Instances.
+
+    The Spot Fleet attempts to launch the number of Spot instances and On-Demand instances to meet the target capacity you spedified in the Spot Fleet request.
+    The request for Spot Instances is fulfilled if there is available capacit and the maximum price you specified in the request exceeds the current Spot price.
+    The Spot Fleet also attempts to maintain its target capacity fleet if your Spot Instances are interrupted.
+
+Launch Pools
+Spot Fleets will try and match the target capacity with your price restraints.
+1. Set different launch pools. Define things like EC2 instanc type, operating system, and Availability Zone.
+2. You can have multiple pools, and the fleet will choose the best way to implement depending on the strategy you define.
+3. Spot fleets will stop launching instances once you reach your price threshold or capacity desire.
+
+Strategies:
+    You can have the following strategies with Spot Fleets.
+    1. capacityOptimized:
+        The Spot Instances come from the pool with optimal capacity for the number of instances launching.
+    2. diversified:
+        The Spot Instances are distributed across all pools.
+    3. lowestPrice:
+        The Spot Instances come from the pool with the lowest price. This is the default strategy.
+    4. InstancePoolsToUseCount:
+        The Spot Instances are distributed across the number of Spot Instance pools you specify. This parameter is valid only when used in combination with lowestPrice.
+
+Exam Tips:
+    Spot Instances save up to 90% of the cost of On-Demand instances.
+    Useful fro any type of computing where you don't need persistent storage.
+    You can block Spot Instances from terminating by using a Spot block.
+    A Spot Fleet is a collection of Spot Instances and (optionally) On-Demand instances.
+
 
 
 
