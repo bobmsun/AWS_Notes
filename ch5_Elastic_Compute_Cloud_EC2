@@ -599,7 +599,68 @@ Exam Tips:
 
 
 
+Chapter 5.11 - Deploying vCenter in AWS with VMware Cloud on AWS
 
+Lesson Breakdown:
+    Why Use VMware on AWS?
+    Use Cases
+    Deployment
+    Exam Tips
+
+Why Use VMware on AWS?
+    VMware is used by organizations around the world for privte cloud deployments. Some organizations opt for a hybrid cloud strategy and would like to leverage AWS services.
+
+Use Cases for VMware
+    Hybrid Cloud
+        Connect you on-premises cloud to the AWS public cloud, and manage a hybrid workload.
+    Cloud Migration
+        Migrate your existing cloud environment to AWS using VMware's built-in tools.
+    Disaster Recovery
+        VMware is famous for its disaster recovery technology. Using hybrid cloud, you can have inexpensive disaster recovery environment on AWS.
+    Leverage AWS
+        Use over 200 AWS services to update your applications or to create new ones.
+
+VMware Cloud on AWS
+    How is it deployed?
+    1. It runs on dedicated hardware hosted in AWS using a single AWS account.
+    2. Each host has two sockets with 18 cores per socket, 512 GiB RAM, and 15.2 TB Raw SSD storage
+    3. Each host is capable of running multiple VMware instances (up to the hundreds)
+    4. Cluster can start with two hosts up to a mizimum of 16 hosts per cluster.
+
+Exam Tips:
+    You can deploy vCenter on the AWS Cloud using VMware.
+    Perfect solution for extending your private VMware Cloud into the AWS public cloud.
+
+
+Chapter 5.12 - Extending AWS Beyond the Cloud with AWS Outposts
+
+Lesson Breakdown:
+    What is Outposts?
+    Benefits
+    Family Members
+    Process
+    Exam Tips
+
+What is Outposts?
+    Outposts brings the AWS data center directly to you, on-premises. 
+    Outposts allows you to have the large variety of AWS services in your data center
+    You can have Outposts in sizes such as 1U and 2U servers all the way up to 42U racks and multiple-rack deployments.
+
+Benefits of Outposts
+    Hybrid Cloud:
+        Create a hybrid cloud where you can leverage AWS services inside your own data center.
+    Fully Managed Infrastructure:
+        AWS can manage the infrastructure for you. You do not need a dedicated team to look after your Outposts infrastructure.
+    Consistency:
+        Bring the AWS Management Console, APIs, and SDKs into your data center, allowing uniform consistency in your hybrid environment.
+    
+Outposts Rack:
+    Hardware:
+        Available starting with a single 42U rack and scale up to 96 racks.
+    Services:
+        Provides AWS compute, storage, database, and other services locally
+    Results:
+        Gives the same AWS infrastructure, services, and APIs in your own data center.
 
 
 
